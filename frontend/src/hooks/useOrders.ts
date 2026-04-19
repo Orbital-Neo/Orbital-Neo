@@ -1,0 +1,1 @@
+// Centraliza as chamadas useQuery e useMutation do TanStack Query.

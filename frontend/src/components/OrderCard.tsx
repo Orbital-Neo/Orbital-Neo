@@ -1,0 +1,1 @@
+// O card individual com a lógica de tempo e badges de entrega

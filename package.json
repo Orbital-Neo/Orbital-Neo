@@ -1,0 +1,5 @@
+{
+  "name": "orbital-neo",
+  "private": true,
+  "workspaces": ["frontend", "backend"]
+}

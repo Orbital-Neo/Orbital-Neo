@@ -1,0 +1,1 @@
+// Exibe o faturamento e métricas calculadas pelo backend
