@@ -19,8 +19,6 @@ export interface OrderItem {
   unitPrice: number;
 }
 
-// Entidade principal do sistema
-// total, estimatedAt, isLate e minutesRemaining sao SEMPRE calculados pelo backend
 export interface Order {
   id: string;                 // UUID gerado pelo backend
   number: number;             // Numero sequencial do pedido (#001, #002...)
@@ -29,7 +27,7 @@ export interface Order {
   type: OrderType;            // delivery ou retirada
   status: OrderStatus;        // Coluna atual no Kanban
   items: OrderItem[];         // Lista de pizzas do pedido
-  total: number;              // Calculado pelo backend: soma de quantity * unitPrice
+  total: number;              // soma de quantity * unitPrice
   estimatedAt: string;        // Calculado pelo backend (ISO 8601)
   isLate: boolean;            // Calculado pelo backend — prazo estourado?
   minutesRemaining: number;   // Calculado pelo backend — negativo se atrasado
