@@ -22,8 +22,8 @@ export interface OrderItem {
 export interface Order {
   id: string;                 // UUID gerado pelo backend
   number: number;             // Numero sequencial do pedido (#001, #002...)
-  customerName: string;       // Nome do cliente
-  customerPhone: string;      // Telefone do cliente
+  // customerName: string;       // Nome do cliente
+  // customerPhone: string;      // Telefone do cliente
   type: OrderType;            // delivery ou retirada
   status: OrderStatus;        // Coluna atual no Kanban
   items: OrderItem[];         // Lista de pizzas do pedido
