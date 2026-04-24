@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "cliente": "Vitória Silva",
+    "status": "novo",
+    "total": 89.90,
+    "itens": ["1x Pizza Família Calabresa", "1x Coca-Cola 2L"]
+  },
+  {
+    "id": "2",
+    "cliente": "Lucas Barbosa",
+    "status": "preparacao",
+    "total": 45.00,
+    "itens": ["1x Pizza Média Portuguesa"]
+  },
+  {
+    "id": "3",
+    "cliente": "Fabyola Santos",
+    "status": "forno",
+    "total": 110.50,
+    "itens": ["2x Pizza Brotinho Chocolate", "1x Suco de Laranja"]
+  }
+]
