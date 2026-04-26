@@ -7,7 +7,7 @@ type ColumnProps = {
 export function KanbanColumn({ title }: ColumnProps) {
   return (
     <div className="flex-1 min-w-[250px]">
-      <h2 className="text-white mb-3">{title}</h2>
+      <h2 className="text-orange-500 mb-3">{title}</h2>
 
       <div className="flex flex-col gap-3">
         <OrderCard name="Ana Souza" orderId="1042" time="37 min" />
