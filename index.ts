@@ -37,7 +37,6 @@ export interface Order {
 }
 
 // Metricas retornadas por GET /dashboard
-// Todos os valores sao calculados no backend — o frontend so exibe
 export interface DashboardMetrics {
   openOrders: number;           // Pedidos com status != 'concluido'
   completedOrders: number;      // Pedidos concluidos hoje

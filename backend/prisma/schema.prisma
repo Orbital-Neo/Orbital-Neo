@@ -1,11 +1,32 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
-
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String
+  email     String   @unique
+  password  String   // hash bcrypt — nunca salvar senha em texto puro
+  role      String   @default("cliente")
+  createdAt DateTime @default(now())
+
+  orders    Order[]
+}
+
+model MenuItem {
+  id        String  @id @default(uuid())
+  name      String  // Nome da pizza ou bebida
+  category  String  // "pizza" ou "bebida"
+  size      String  // "Pequena", "Media", "Grande", "Familia", "350ml", etc
+  price     Float
+  available Boolean @default(true)
+  imageUrl  String?
 }
 
 model Order {
@@ -13,22 +34,27 @@ model Order {
   number        Int         @unique @default(autoincrement())
   customerName  String
   customerPhone String
-  type          String
+  type          String      // "delivery" ou "retirada"
   status        String      @default("recebido")
-  total         Float
-  estimatedAt   DateTime
-  notes         String?
+  total         Float       // calculado no controller
+  estimatedAt   DateTime    // calculado no controller
+  notes         String?     // observação do cliente (ex: "tirar a cebola")
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+
+  userId        String?     // nullable — pedidos antigos podem não ter usuário
+  user          User?       @relation(fields: [userId], references: [id])
+
   items         OrderItem[]
 }
 
 model OrderItem {
-  id         String  @id @default(uuid())
-  name       String
-  size       String
-  quantity   Int
-  unitPrice  Float
-  order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  orderId    String
+  id          String  @id @default(uuid())
+  name        String
+  size        String
+  quantity    Int
+  unitPrice   Float   // preço no momento do pedido
+
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId     String
 }
