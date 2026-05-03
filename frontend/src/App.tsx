@@ -1,15 +1,16 @@
-import "./App.css";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { OrdersPage } from "./pages/OrdersPage";
 import { ClientPage } from "./pages/ClientPage";
-//import { OrdersPage } from "./pages/OrdersPage";
-
 
 function App() {
-  return (
-  <ClientPage/>
-  //<OrdersPage />
+  const path = window.location.pathname;
 
-  );
+  if (path === "/register") return <RegisterPage />;
+  if (path === "/admin") return <OrdersPage />;
+  if (path === "/client") return <ClientPage />;
 
+  return <LoginPage />;
 }
 
 export default App;
