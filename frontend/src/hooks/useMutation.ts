@@ -31,7 +31,7 @@ export function usePedidos() {
   // Hook de Escrita (Mutação)
   const mutation = useMutation({
     mutationFn: updatePedidoStatus,
-    // quando a mutação termina, avisamos o TanStack 
+    // quando a mutação termina, avise o TanStack 
     // para atualizar a lista de pedidos na hora!
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pedidos'] });
