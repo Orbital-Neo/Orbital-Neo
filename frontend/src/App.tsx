@@ -1,9 +1,15 @@
 import "./App.css";
-import { OrdersPage } from "./pages/OrdersPage";
+import { ClientPage } from "./pages/ClientPage";
+//import { OrdersPage } from "./pages/OrdersPage";
 
 
 function App() {
-  return <OrdersPage />;
+  return (
+  <ClientPage/>
+  //<OrdersPage />
+
+  );
+
 }
 
 export default App;

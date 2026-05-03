@@ -15,10 +15,6 @@ export function Sidebar() {
         <button className="text-left p-3 hover:bg-blue-800 rounded transition text-blue-100">
           Busca
         </button>
-
-        <button className="text-left p-3 hover:bg-blue-800 rounded transition text-blue-100">
-          Histórico
-        </button>
       </nav>
     </aside>
   );
