@@ -1,7 +1,6 @@
 import { z } from 'zod'
 import { OrderModel } from '../models/OrderModel'
-import type { CreateOrderDTO, OrderStatus, UpdateOrderStatusDTO } from '../../../index'
-
+import type { CreateOrderDTO, OrderStatus } from '../types/orderTypes'
 // ─── schemas de validação (Zod) ───────────────────────────────────────────────
 
 const OrderItemSchema = z.object({

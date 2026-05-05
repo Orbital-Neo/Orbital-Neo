@@ -1,8 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { verifyToken } from '../services/AuthService'
 
-// Qualquer usuário logado pode acessar
-export async function authenticate(req: FastifyRequest, rep: FastifyReply) {
+export async function authenticate(
+  req: FastifyRequest,
+  rep: FastifyReply
+) {
   const authHeader = req.headers.authorization
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -19,8 +21,10 @@ export async function authenticate(req: FastifyRequest, rep: FastifyReply) {
   }
 }
 
-// Apenas operadores podem acessar
-export async function authorizeOperator(req: FastifyRequest, rep: FastifyReply) {
+export async function authorizeOperator(
+  req: FastifyRequest,
+  rep: FastifyReply
+) {
   await authenticate(req, rep)
 
   if (req.user?.role !== 'operador') {

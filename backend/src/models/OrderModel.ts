@@ -1,6 +1,5 @@
 import { db } from '../db'
-import type { CreateOrderDTO, OrderStatus } from '../../../index'
-
+import type { CreateOrderDTO, OrderStatus } from '../types/orderTypes'
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
 /** Calcula estimatedAt com base no tipo do pedido */
