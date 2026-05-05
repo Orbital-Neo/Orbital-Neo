@@ -1,18 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
 
+const USAR_MOCK = true;
 
-const USAR_MOCK = true
-
-export interface RankingSabor {
-  sabor: string;
-  quantidade: number;
-}
-
+export interface RankingSabor { sabor: string; quantidade: number }
 export interface Metrics {
-  totalVendido: number;        //
-  tempoMedioMinutos: number;   // 
-  rankingSabores: RankingSabor[]; // 
+  totalVendido: number;
+  tempoMedioMinutos: number;
+  rankingSabores: RankingSabor[];
 }
 
 const metricsMock: Metrics = {
@@ -32,12 +27,10 @@ export function useMetrics() {
     queryKey: ['metrics'],
     queryFn: async () => {
       if (USAR_MOCK) return metricsMock;
-      
-      // A rota '/dashboard' bate com o DashboardController do Jorge
       const { data } = await api.get<Metrics>('/dashboard');
       return data;
     },
-    // Polling configurado para manter a pizzaria atualizada
-    refetchInterval: USAR_MOCK ? false : 30000, 
+    refetchInterval: USAR_MOCK ? false : 30_000,
+    refetchIntervalInBackground: true,
   });
 }
