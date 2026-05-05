@@ -10,6 +10,11 @@ app.register(cors, { origin: process.env.CORS_ORIGIN })
 app.register(authRoutes)
 app.register(menuRoutes)
 
-app.listen({ port: Number(process.env.PORT) || 3333 }, () => {
-  console.log('Servidor rodando na porta 3333')
-})
+const port = process.env.PORT ? Number(process.env.PORT) : 3333;
+
+app.listen({ port: port, host: '0.0.0.0' }).then(() => {
+  console.log(`Servidor rodando na porta ${port}`);
+}).catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
