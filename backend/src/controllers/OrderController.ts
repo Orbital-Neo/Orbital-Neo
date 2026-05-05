@@ -26,10 +26,13 @@ export const OrderController = {
 
   async create(req: FastifyRequest, rep: FastifyReply) {
     try {
-      const order = await OrderService.create(req.body)
-      return rep.status(201).send(order)
+      const userId = (req as any).user?.id; 
+      const orderData = { ...(req.body as object), userId };
+
+      const order = await OrderService.create(orderData);
+      return rep.status(201).send(order);
     } catch (err: any) {
-      return rep.status(err.statusCode ?? 500).send({ error: err.message })
+      return rep.status(err.statusCode ?? 500).send({ error: err.message });
     }
   },
 

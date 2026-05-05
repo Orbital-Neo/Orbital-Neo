@@ -16,6 +16,7 @@ const CreateOrderSchema = z.object({
   type:          z.enum(['delivery', 'retirada']),
   items:         z.array(OrderItemSchema).min(1, 'Pedido deve ter pelo menos 1 item'),
   notes:         z.string().optional(),
+  userId:        z.string().optional(),
 })
 
 const UpdateStatusSchema = z.object({
