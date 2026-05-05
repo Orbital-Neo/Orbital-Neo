@@ -3,12 +3,14 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import { authRoutes } from './routes/AuthRoutes'
 import { menuRoutes } from './routes/MenuRoutes'
+import { dashboardRoutes } from './routes/DashboardRoutes'
 
 const app = Fastify({ logger: true })
 
 app.register(cors, { origin: process.env.CORS_ORIGIN })
 app.register(authRoutes)
 app.register(menuRoutes)
+app.register(dashboardRoutes)
 
 const port = process.env.PORT ? Number(process.env.PORT) : 3333;
 
