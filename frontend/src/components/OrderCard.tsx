@@ -1,4 +1,7 @@
+import { useDraggable } from "@dnd-kit/core";
+
 type OrderCardProps = {
+  id: string;
   name: string;
   orderId: string;
   status: string;
@@ -11,9 +14,23 @@ type OrderCardProps = {
   total?: number;
 };
 
-export function OrderCard({ name, orderId, status, time, items, footer, total }: OrderCardProps) {
+export function OrderCard({ id, name, orderId, status, time, items, footer, total }: OrderCardProps) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id,
+  });
+
+  const style = transform ? {
+    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+  } : undefined;
+
   return (
-    <div className="bg-white p-4 rounded-lg border-l-4 border-l-orange-500 shadow-md hover:shadow-lg transition">
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`bg-white p-4 rounded-lg border-l-4 border-l-orange-500 shadow-md hover:shadow-lg transition ${isDragging ? 'opacity-50' : ''}`}
+    >
       <div className="flex justify-between items-start gap-2">
         <div>
           <p className="text-xs font-semibold text-blue-600">#{orderId}</p>

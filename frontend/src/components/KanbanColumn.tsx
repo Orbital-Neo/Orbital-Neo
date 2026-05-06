@@ -11,6 +11,7 @@ export function KanbanColumn({ title }: ColumnProps) {
 
       <div className="flex flex-col gap-3">
         <OrderCard
+          id="1"
           name="Ana Souza"
           orderId="1042"
           status="Recebido"
@@ -22,6 +23,7 @@ export function KanbanColumn({ title }: ColumnProps) {
         />
 
         <OrderCard
+          id="2"
           name="Mariana Costa"
           orderId="1038"
           status="Em preparo"

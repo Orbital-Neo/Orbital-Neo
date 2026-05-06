@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { OrderCard } from "../components/OrderCard";
 import { getOrders } from "../services/api";
+import { DndContext, type DragEndEvent, useDroppable } from "@dnd-kit/core";
 
 const STATUS_ORDER = [
   "recebido",
@@ -19,6 +20,21 @@ const STATUS_LABELS: Record<string, string> = {
   saiu_para_entrega: "Saiu para entrega",
   concluido: "Concluído",
 };
+
+function DroppableColumn({ status, children }: { status: string; children: React.ReactNode }) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: status,
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`flex-1 min-w-[260px] p-4 rounded-lg ${isOver ? 'bg-blue-50' : ''}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function OrdersPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -57,6 +73,26 @@ export function OrdersPage() {
   function handleLogout() {
     localStorage.removeItem("auth");
     window.location.href = "/";
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over) return;
+
+    const orderId = active.id as string;
+    const newStatus = over.id as string;
+
+    setOrders((prevOrders) =>
+      prevOrders.map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+    );
+
+    // Update localStorage
+    const updatedOrders = orders.map((order) =>
+      order.id === orderId ? { ...order, status: newStatus } : order
+    );
+    localStorage.setItem("localOrders", JSON.stringify(updatedOrders));
   }
 
   const grouped = STATUS_ORDER.reduce((acc, status) => {
@@ -99,35 +135,38 @@ export function OrdersPage() {
               Carregando pedidos...
             </div>
           ) : (
-            <div className="p-4 flex gap-4 overflow-x-auto">
-              {STATUS_ORDER.map((status) => (
-                <div key={status} className="flex-1 min-w-[260px]">
-                  <h2 className="text-orange-500 mb-3 font-semibold">
-                    {STATUS_LABELS[status]}
-                  </h2>
+            <DndContext onDragEnd={handleDragEnd}>
+              <div className="p-4 flex gap-4 overflow-x-auto">
+                {STATUS_ORDER.map((status) => (
+                  <DroppableColumn key={status} status={status}>
+                    <h2 className="text-orange-500 mb-3 font-semibold">
+                      {STATUS_LABELS[status]}
+                    </h2>
 
-                  <div className="space-y-4">
-                    {(grouped[status] || []).length === 0 ? (
-                      <div className="rounded-3xl border border-slate-200 bg-white p-4 text-slate-500">
-                        Sem pedidos
-                      </div>
-                    ) : (
-                      grouped[status].map((order) => (
-                        <OrderCard
-                          key={order.id}
-                          name={order.customerName || "Cliente"}
-                          orderId={String(order.number ?? order.id).slice(0, 8)}
-                          status={order.status ?? "recebido"}
-                          items={order.items ?? []}
-                          footer={order.type ? `Tipo: ${order.type}` : undefined}
-                          total={order.total}
-                        />
-                      ))
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+                    <div className="space-y-4">
+                      {(grouped[status] || []).length === 0 ? (
+                        <div className="rounded-3xl border border-slate-200 bg-white p-4 text-slate-500">
+                          Sem pedidos
+                        </div>
+                      ) : (
+                        grouped[status].map((order) => (
+                          <OrderCard
+                            key={order.id}
+                            id={order.id}
+                            name={order.customerName || "Cliente"}
+                            orderId={String(order.number ?? order.id).slice(0, 8)}
+                            status={order.status ?? "recebido"}
+                            items={order.items ?? []}
+                            footer={order.type ? `Tipo: ${order.type}` : undefined}
+                            total={order.total}
+                          />
+                        ))
+                      )}
+                    </div>
+                  </DroppableColumn>
+                ))}
+              </div>
+            </DndContext>
           )}
         </div>
       </div>
