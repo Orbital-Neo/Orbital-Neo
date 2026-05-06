@@ -1,0 +1,70 @@
+import { useState } from "react";
+
+export function RegisterPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("client");
+
+  function handleRegister() {
+    const user = { email, password, role };
+    localStorage.setItem("user", JSON.stringify(user));
+
+    alert("Cadastro realizado!");
+    window.location.href = "/";
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded-xl shadow-md w-80">
+
+        {/* LOGO */}
+        <div className="flex flex-col items-center mb-6">
+          <img src="/logo.png" className="w-16 mb-2" />
+          <h2 className="text-xl font-bold text-gray-800">
+            Criar conta
+          </h2>
+        </div>
+
+        {/* INPUT EMAIL */}
+        <input
+          placeholder="Email"
+          className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        {/* INPUT SENHA */}
+        <input
+          type="password"
+          placeholder="Senha"
+          className="w-full mb-3 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        {/* SELECT */}
+        <select
+          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option value="client">Cliente</option>
+          <option value="admin">Administrador</option>
+        </select>
+
+        {/* BOTÃO */}
+        <button
+          onClick={handleRegister}
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg font-semibold transition"
+        >
+          Cadastrar
+        </button>
+
+        {/* VOLTAR PARA LOGIN */}
+        <p className="text-sm mt-4 text-center text-gray-600">
+          Já tem conta?{" "}
+          <a href="/" className="text-orange-500 font-medium">
+            Voltar para login
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
