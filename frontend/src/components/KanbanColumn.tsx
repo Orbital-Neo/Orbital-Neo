@@ -11,24 +11,28 @@ export function KanbanColumn({ title }: ColumnProps) {
 
       <div className="flex flex-col gap-3">
         <OrderCard
-            name="Ana Souza"
-            orderId="1042"
-            time="37 min"
-            items={[
-                { name: "Pizza", quantity: 1 },
-                { name: "Suco", quantity: 2 },
-            ]}
-            />
+          id="1"
+          name="Ana Souza"
+          orderId="1042"
+          status="Recebido"
+          time="37 min"
+          items={[
+            { name: "Pizza", quantity: 1 },
+            { name: "Suco", quantity: 2 },
+          ]}
+        />
 
-            <OrderCard
-            name="Mariana Costa"
-            orderId="1038"
-            time="12 min"
-            items={[
-                { name: "Hambúrguer", quantity: 1 },
-                { name: "Refrigerante", quantity: 1 },
-            ]}
-            />
+        <OrderCard
+          id="2"
+          name="Mariana Costa"
+          orderId="1038"
+          status="Em preparo"
+          time="12 min"
+          items={[
+            { name: "Hambúrguer", quantity: 1 },
+            { name: "Refrigerante", quantity: 1 },
+          ]}
+        />
       </div>
     </div>
   );

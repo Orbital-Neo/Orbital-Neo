@@ -1,33 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '../services/api';
+import { api } from '../services/api';
+import type { DashboardMetrics } from '../types';
 
 const USAR_MOCK = true;
 
-export interface RankingSabor { sabor: string; quantidade: number }
-export interface Metrics {
-  totalVendido: number;
-  tempoMedioMinutos: number;
-  rankingSabores: RankingSabor[];
-}
-
-const metricsMock: Metrics = {
-  totalVendido: 1250.00,
-  tempoMedioMinutos: 22,
-  rankingSabores: [
-    { sabor: 'Calabresa', quantidade: 15 },
-    { sabor: 'Marguerita', quantidade: 12 },
-    { sabor: 'Portuguesa', quantidade: 10 },
-    { sabor: 'Frango com Catupiry', quantidade: 8 },
-    { sabor: 'Quatro Queijos', quantidade: 5 },
-  ],
+const metricsMock: DashboardMetrics = {
+  openOrders: 18,
+  completedOrders: 42,
+  lateOrders: 7,
+  totalOrdersToday: 64,
+  avgCompletionMinutes: 38,
 };
 
 export function useMetrics() {
-  return useQuery<Metrics>({
+  return useQuery<DashboardMetrics>({
     queryKey: ['metrics'],
     queryFn: async () => {
       if (USAR_MOCK) return metricsMock;
-      const { data } = await api.get<Metrics>('/dashboard');
+      const { data } = await api.get<DashboardMetrics>('/dashboard');
       return data;
     },
     refetchInterval: USAR_MOCK ? false : 30_000,

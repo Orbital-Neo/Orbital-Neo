@@ -1,15 +1,73 @@
+export type OrderStatus = 'recebido' | 'em_preparo' | 'pronto' | 'saiu_para_entrega' | 'concluido';
+export type OrderType = 'delivery' | 'retirada';
+export type UserRole = 'cliente' | 'operador';
 
-export type {
-  OrderStatus,
-  OrderType,
-  OrderItem,
-  Order,
-  DashboardMetrics,
-  CreateOrderDTO,
-  UpdateOrderStatusDTO,
-} from '../../index.ts';
+export interface LoginDTO {
+  email: string;
+  password: string;
+}
 
-import type { OrderStatus } from '../../index.ts';
+export interface RegisterDTO {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+}
+
+export interface AuthUser {
+  id: string | number;
+  name: string;
+  email: string;
+  phone?: string;
+  role: UserRole;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: AuthUser;
+}
+
+export interface MenuItem {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  available?: boolean;
+  imageUrl?: string;
+  size?: string;
+}
+
+export interface OrderItem {
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+export interface Order {
+  id: string;
+  customerName: string;
+  customerPhone: string;
+  status: OrderStatus;
+  type: OrderType;
+  total: number;
+  items: OrderItem[];
+}
+
+// DTOs para as funções da API
+export interface CreateOrderDTO {
+  customerName: string;
+  customerPhone: string;
+  type: OrderType;
+  items: OrderItem[];
+}
+
+export interface DashboardMetrics {
+  openOrders: number;
+  completedOrders: number;
+  lateOrders: number;
+  totalOrdersToday: number;
+  avgCompletionMinutes: number;
+}
 
 // Nome exibido em cada coluna do Kanban
 export const COLUMN_LABELS: Record<OrderStatus, string> = {
