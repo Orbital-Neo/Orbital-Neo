@@ -5,13 +5,29 @@ type ProductCardProps = {
   onAdd: (product: MenuItem) => void;
 };
 
+const imageMap: Record<string, string> = {
+  "calabresa": "calabresa.png",
+  "frango com catupiry": "frango.png",
+  "margherita": "margherita.png",
+  "pepperoni": "pepperoni.png",
+  "portuguesa": "portuguesa.png",
+  "quatro queijos": "quatroQueijos.png",
+  "quatroqueijos": "quatro-queijos.png",
+  "refrigerante": "refrigerante.png",
+  "suco": "suco.png",
+  "agua": "agua.png",
+};
+
 export function ProductCard({ product, onAdd }: ProductCardProps) {
+  const normalizedName = product.name.toLowerCase().trim();
+  const imageSrc = product.imageUrl || imageMap[normalizedName] || "/logo.png";
+
   return (
     <div className="bg-white border border-slate-200 rounded-[28px] shadow-xl w-[240px] overflow-hidden transition hover:-translate-y-1 hover:shadow-2xl">
       <img
-        src={product.imageUrl ?? "/logo.png"}
+        src={imageSrc}
         alt={product.name}
-        className="w-full h-40 object-cover"
+        className="w-full h-50 object-cover"
       />
 
       <div className="p-4">
