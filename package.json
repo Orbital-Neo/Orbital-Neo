@@ -1,5 +1,11 @@
 {
   "name": "orbital-neo",
   "private": true,
-  "workspaces": ["frontend", "backend"]
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "dependencies": {
+    "react-router-dom": "^7.15.0"
+  }
 }

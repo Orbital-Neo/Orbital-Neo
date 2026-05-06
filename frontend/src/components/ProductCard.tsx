@@ -1,50 +1,32 @@
-import { useState } from "react";
+import type { MenuItem } from "../services/api";
 
-export function ProductCard({ product, onAdd }: any) {
-  const sizes = Object.keys(product.sizes);
-  const [selectedSize, setSelectedSize] = useState(sizes[0]);
+type ProductCardProps = {
+  product: MenuItem;
+  onAdd: (product: MenuItem) => void;
+};
 
-  const price = product.sizes[selectedSize];
-
+export function ProductCard({ product, onAdd }: ProductCardProps) {
   return (
     <div className="bg-white border border-slate-200 rounded-[28px] shadow-xl w-[240px] overflow-hidden transition hover:-translate-y-1 hover:shadow-2xl">
       <img
-        src={product.image}
+        src={product.imageUrl ?? "/logo.png"}
+        alt={product.name}
         className="w-full h-40 object-cover"
       />
 
       <div className="p-4">
-        <h3 className="font-semibold text-slate-900 text-lg">
-          {product.name}
-        </h3>
+        <h3 className="font-semibold text-slate-900 text-lg">{product.name}</h3>
 
-        <p className="text-orange-500 font-bold text-base mt-2">
-          R$ {price}
+        <p className="text-sm text-slate-500 mt-1">
+          {product.category === "bebida" ? "Bebida" : "Pizza"} · {product.size}
         </p>
 
-        <div className="flex flex-wrap gap-2 mt-4">
-          {sizes.map((size) => (
-            <button
-              key={size}
-              onClick={() => setSelectedSize(size)}
-              className={`px-3 py-1.5 text-xs rounded-full border transition ${
-                selectedSize === size
-                  ? "bg-orange-500 text-white border-orange-500"
-                  : "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200"
-              }`}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+        <p className="text-orange-500 font-bold text-base mt-2">
+          R$ {product.price}
+        </p>
 
         <button
-          onClick={() =>
-            onAdd({
-              name: `${product.name} (${selectedSize})`,
-              price,
-            })
-          }
+          onClick={() => onAdd(product)}
           className="mt-4 w-full rounded-2xl bg-orange-500 text-white text-sm font-semibold py-2 hover:bg-orange-600 transition"
         >
           Adicionar
