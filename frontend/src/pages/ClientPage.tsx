@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Adicionado para navegação limpa
+import { useNavigate } from "react-router-dom";
 import { ClientHeader } from "../components/ClientHeader";
 import { ClientCard } from "../components/ClientCard";
 import { ClientInfo } from "../components/ClientInfo";
 import { ProductCard } from "../components/ProductCard";
-import type { MenuItem, CreateOrderDTO } from "../types"; // Importação correta
-import { menuService, pedidosService } from "../services/api"; // Importação correta
+import type { MenuItem, CreateOrderDTO } from "../types";
+import { menuService, pedidosService } from "../services/api";
 
-// Mantemos o CartItem local se for exclusivo desta lógica de UI
 type CartItem = MenuItem & {
   quantity: number;
 };
@@ -80,7 +79,6 @@ export function ClientPage() {
 
     setIsSending(true);
 
-    // Montagem do Payload seguindo o CreateOrderDTO
     const payload: CreateOrderDTO = {
       customerName: user.name,
       customerPhone: phone,
@@ -94,14 +92,12 @@ export function ClientPage() {
     };
 
     try {
-      // Alterado para usar o serviço correto. Token é injetado pelo interceptor
       await pedidosService.create(payload); 
       setCart([]);
       setIsCartOpen(false);
       setNotes("");
       alert("Pedido enviado com sucesso!");
     } catch (error) {
-      // Fallback local caso o servidor esteja offline
       const fallbackOrder = {
         id: String(Date.now()),
         customerName: user.name,

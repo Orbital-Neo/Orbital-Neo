@@ -8,14 +8,11 @@ import type {
   MenuItem 
 } from "../types";
 
-// Configuração da instância principal do Axios
 export const api = axios.create({
-  // URL base do seu backend Fastify (ajuste se a porta for diferente)
   baseURL: "http://localhost:3333", 
   timeout: 10000,
 });
 
-// Interceptor: Injeta o token em todas as requisições que precisarem de autenticação
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("@OrbitalNeo:token");
   if (token && config.headers) {
@@ -24,7 +21,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Agrupamento de serviços por domínio (Auth, Pedidos, Menu)
 export const authService = {
   login: async (data: LoginDTO) => {
     const response = await api.post<AuthResponse>("/auth/login", data);
@@ -32,7 +28,6 @@ export const authService = {
   },
   
   register: async (data: RegisterDTO) => {
-    // O envio não inclui mais a role, alinhado com o backend
     const response = await api.post<AuthResponse>("/auth/register", data);
     return response.data;
   },
