@@ -12,17 +12,14 @@ export function KanbanBoard() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    // Se soltou fora de uma coluna válida, ignora
     if (!over) return;
 
     const orderId = String(active.id);
     const newStatus = String(over.id) as OrderStatus;
 
-    // Acha o pedido atual para não fazer requisição se ele não mudou de coluna
     const pedidoAtual = pedidos?.find((p) => String(p.id) === orderId);
     
     if (pedidoAtual && pedidoAtual.status !== newStatus) {
-      // Dispara a atualização para o backend e atualiza a tela automaticamente
       updateStatus({ orderId, newStatus });
     }
   };

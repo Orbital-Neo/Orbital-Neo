@@ -26,9 +26,8 @@ export function usePedidos() {
         return (pedidosDaPasta as PedidoMock[]).map(
           (p): Order => ({
             id: p.id,
-            customerName: p.cliente, 
-            customerPhone: "", 
-            
+            customerName: p.cliente,
+            customerPhone: "", // Preenche vazio já que é opcional
             status:
               p.status === "preparacao"
                 ? "em_preparo"
@@ -39,7 +38,6 @@ export function usePedidos() {
                     : "recebido",
             total: p.total,
             type: "delivery",
-            
             items: p.itens.map((itemStr) => ({
               name: itemStr,
               quantity: 1,

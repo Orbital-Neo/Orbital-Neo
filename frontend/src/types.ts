@@ -46,7 +46,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   customerName: string;
-  customerPhone: string;
+  customerPhone?: string;
   status: OrderStatus;
   type: OrderType;
   total: number;
