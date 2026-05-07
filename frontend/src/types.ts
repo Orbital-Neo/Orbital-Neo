@@ -51,6 +51,7 @@ export interface Order {
   type: OrderType;
   total: number;
   items: OrderItem[];
+  timeInStatus?: string;
 }
 
 // DTOs para as funções da API
