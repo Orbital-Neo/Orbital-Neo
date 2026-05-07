@@ -1,38 +1,33 @@
 import { OrderCard } from "./OrderCard";
+import  type { Order } from "../types";
 
 type ColumnProps = {
+  id: string; 
   title: string;
+  pedidos: Order[]; 
 };
 
-export function KanbanColumn({ title }: ColumnProps) {
+export function KanbanColumn({ title, pedidos }: ColumnProps) {
   return (
     <div className="flex-1 min-w-[250px]">
-      <h2 className="text-orange-500 mb-3">{title}</h2>
+      <h2 className="text-orange-500 mb-3 font-bold">{title}</h2>
 
       <div className="flex flex-col gap-3">
-        <OrderCard
-          id="1"
-          name="Ana Souza"
-          orderId="1042"
-          status="Recebido"
-          time="37 min"
-          items={[
-            { name: "Pizza", quantity: 1 },
-            { name: "Suco", quantity: 2 },
-          ]}
-        />
+        {pedidos.map((pedido) => (
+          <OrderCard
+            key={pedido.id}
+            id={String(pedido.id)}
+            name={pedido.customerName}
+            orderId={pedido.id}
+            status={pedido.status}
+            items={pedido.items}
+            total={pedido.total}
+          />
+        ))}
 
-        <OrderCard
-          id="2"
-          name="Mariana Costa"
-          orderId="1038"
-          status="Em preparo"
-          time="12 min"
-          items={[
-            { name: "Hambúrguer", quantity: 1 },
-            { name: "Refrigerante", quantity: 1 },
-          ]}
-        />
+        {pedidos.length === 0 && (
+          <p className="text-gray-400 text-sm italic">Nenhum pedido nesta etapa.</p>
+        )}
       </div>
     </div>
   );

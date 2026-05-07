@@ -36,7 +36,6 @@ export function KanbanBoard() {
       <div style={{ display: 'flex', gap: '20px', padding: '20px', overflowX: 'auto', minHeight: '70vh' }}>
         
         {COLUMN_ORDER.map((status) => {
-          // Filtra apenas os pedidos que pertencem a esta coluna específica
           const pedidosDestaColuna = pedidos?.filter((p) => p.status === status) || [];
 
           return (
