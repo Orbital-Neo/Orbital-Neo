@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Sidebar } from "./components/Sidebar";
 import { Header } from "./components/Header";
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -35,7 +37,9 @@ function PrivateLayout() {
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
+      <Routes>
       {/* Rotas Públicas */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
@@ -57,5 +61,6 @@ export default function App() {
       {/* Redirecionamento padrão para evitar telas brancas */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
+    </>
   );
 }

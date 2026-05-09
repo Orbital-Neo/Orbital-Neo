@@ -58,7 +58,12 @@ export function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-xl border border-slate-100 p-8">
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 flex flex-col items-center">
+          <img 
+            src="/logo.png" 
+            alt="Logo Orbital Neo" 
+            className="w-20 h-20 mb-4 rounded-2xl shadow-sm object-cover" 
+          />
           <h1 className="text-3xl font-bold text-slate-900 mb-2">Criar conta</h1>
         </div>
 

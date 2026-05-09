@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ClientHeader } from "../components/ClientHeader";
 import { ClientCard } from "../components/ClientCard";
 import { ClientInfo } from "../components/ClientInfo";
@@ -74,8 +75,14 @@ export function ClientPage() {
 
   async function handleCheckout() {
     if (!user) return navigate("/login");
-    if (cart.length === 0) return alert("Adicione itens ao carrinho.");
-    if (!phone.trim()) return alert("Informe um telefone.");
+    if (cart.length === 0) {
+      toast.error("Adicione itens ao carrinho.");
+      return;
+    }
+    if (!phone.trim()) {
+      toast.error("Informe um telefone.");
+      return;
+    }
 
     setIsSending(true);
 
@@ -96,7 +103,7 @@ export function ClientPage() {
       setCart([]);
       setIsCartOpen(false);
       setNotes("");
-      alert("Pedido enviado com sucesso!");
+      toast.success("Pedido enviado com sucesso!");
     } catch (error) {
       const fallbackOrder = {
         id: String(Date.now()),
@@ -114,7 +121,7 @@ export function ClientPage() {
       
       setCart([]);
       setIsCartOpen(false);
-      alert("Pedido criado localmente. O administrador verá o pedido no painel.");
+      toast.info("Pedido criado localmente. O administrador verá o pedido no painel.");
     } finally {
       setIsSending(false);
     }
